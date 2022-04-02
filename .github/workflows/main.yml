@@ -10,7 +10,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --severity-threshold=high
           command: iac test 
+          args: --severity-threshold=medium
   
           #test push 
