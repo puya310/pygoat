@@ -10,7 +10,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: iac test
+          command: iac test --file=k8s/migration-deployment.yaml
           args: --severity-threshold=high
   
           #test push 
