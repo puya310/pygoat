@@ -34,4 +34,5 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          snyk container monitor $REGISTRY/$REPOSITORY:$IMAGE_TAG --file=Dockerfile
+    #      docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
