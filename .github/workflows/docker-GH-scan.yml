@@ -15,6 +15,7 @@ jobs:
           npm install snyk -g
           npm install snyk-to-html -g
           snyk auth ${{secrets.SNYK_TOKEN}}
+          
         
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -32,7 +33,16 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: puya-ecr
           IMAGE_TAG: ${{ github.sha }}
-        run: |
+        run: 
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+      - name: Snyk Container Monitor + HTML upload artifact 
+        run: |
           snyk container monitor $REGISTRY/$REPOSITORY:$IMAGE_TAG --file=Dockerfile
+          snyk container test $REGISTRY/$REPOSITORY:$IMAGE_TAG --file=Dockerfile --json | snyk-to-html -o results.html
     #      docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+      - name: Upload Snyk HTML Result artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Archive Snyk Scan Results
+          path: | 
+            results.html
