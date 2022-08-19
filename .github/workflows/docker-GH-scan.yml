@@ -35,7 +35,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-          snyk container test $REGISTRY/$REPOSITORY:$IMAGE_TAG --file=Dockerfile --json | snyk-to-html -o results.html
+          snyk container test $REGISTRY/$REPOSITORY:$IMAGE_TAG --file=Dockerfile --json | snyk-to-html -o results.html || true
           snyk container monitor $REGISTRY/$REPOSITORY:$IMAGE_TAG --file=Dockerfile
           
     #      docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
