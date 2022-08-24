@@ -12,7 +12,15 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           args: --sarif-file-output=snyk.sarif
+      - name: Build, tag, and push docker image to Amazon ECR
+        run: 
+          pip install -r requirements.txt
+          snyk code test --sarif-file-codesarif.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
+      - name: uppload code sarif
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: codesarif.sarif
