@@ -11,5 +11,5 @@ whitenoise
 django-allauth
 Jinja2==2.7.2
 python-etcd==0.4.5
-urllib3==1.25.9
+urllib3==1.26.19
 #test push should not push ddd
