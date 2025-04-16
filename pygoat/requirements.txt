@@ -9,3 +9,4 @@ gunicorn
 django-heroku
 whitenoise
 django-allauth
+jinja2>=3.1.3 # not directly required, pinned by Snyk to avoid a vulnerability
